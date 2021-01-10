@@ -1,6 +1,6 @@
 '''
 Author: Tanner Lorenz
-261 Grading Script Version 0.1
+261 Grading Script Version 1.0
 Feel free to use or modify this software however you wish. I hold no
 responsibility for anything that happens to break or go wrong when you use this
 program.
@@ -25,13 +25,18 @@ if len(sys.argv) != 3:
 	sys.exit()
 
 #input and output file
-INPUT_FILE = sys.argv[1]
-OUTPUT_FILE = sys.argv[2]
+INPUT_FILE_PATH = sys.argv[1]
+OUTPUT_FILE_PATH = sys.argv[2]
 
 #load rubric
-with open(INPUT_FILE, 'r') as inputFile:
+with open(INPUT_FILE_PATH, 'r') as inputFile:
+
 	rubric = inputFile.readlines()
-	possiblePoints = int(rubric[0])
+
+	#store different point totals
+	totalPoints = int(rubric[0])
+	labPoints = int(rubric[1])
+	assignmentPoints = int(rubric[2])
 
 #grade students until told to stop
 while True:
@@ -39,20 +44,23 @@ while True:
 	student = input("Enter student name: ") #get student name
 
 	#check current student's grade
-	with open(OUTPUT_FILE, 'a') as outputFile:
+	with open(OUTPUT_FILE_PATH, 'a') as outputFile:
 
-		studentTotal = possiblePoints
+		studentTotal = totalPoints #TODO: probably could be removed, but too lazy right now
+		studentLab = labPoints
+		studentAssignment = assignmentPoints
 
 		outputFile.write(student + "\n\n") #write student name
 
 		#check each criteria
-		for x in range(1, len(rubric)):
+		for x in range(3, len(rubric)):
 
 			#get criteria parameters
 			criteria = rubric[x].split(":")
 			pointValue = float(criteria[0])
-			prompt = criteria[1]
-			result = criteria[2]
+			pointType = criteria[1]
+			prompt = criteria[2]
+			result = criteria[3]
 
 			#determine if this criteria is extra credit
 			if criteria[0][0] == '+':
@@ -65,13 +73,45 @@ while True:
 
 			#deduct/add points based on answer/extra credit
 			if response == 'n' and criteria[0][0] != '+':
-				studentTotal -= pointValue
+
+				#subtract correct point type
+				if pointType == 'L':
+					studentLab -= pointValue
+				else:
+					studentAssignment -= pointValue
+
+				studentTotal -= pointValue #subtract from total
 				outputFile.write("-" + str(pointValue) + ": " + result)
+
 			elif response == 'y' and criteria[0][0] == '+':
-				studentTotal += pointValue
+
+				#add correct point type
+				if pointType == 'L':
+					studentLab += pointValue
+				else:
+					studentAssignment += pointValue
+
+				studentTotal += pointValue #add to total
 				outputFile.write("+" + str(pointValue) + ": " + result)
 
-		#TODO: add syllabus penalties for assignment
+		totalPenalty = 0 #total percentage to deduct due to penalties
+
+		#assess penalties from the syllabus (not including late penalties)
+		for penalty in DEFAULT_PENALTIES:
+
+			#prompt for current penalty
+			response = input(penalty[0] + "? ")
+			while response != 'y' and response != 'n':
+				response = input("y or n: ")
+
+			#add penalty if student fails criteria
+			if response == 'n':
+
+				totalPenalty += penalty[2]
+				outputFile.write("\n-" + str(penalty[2]) + "%: " + penalty[1])
+
+		studentAssignment -= (studentAssignment * totalPenalty) #apply penalty to assignment points only
+		studentTotal = studentAssignment + studentLab #recombine points to account for any penalties
 
 		#prompt for any extra notes
 		notes = input("Notes (or just hit enter for no notes): ")

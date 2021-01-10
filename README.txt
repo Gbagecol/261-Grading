@@ -1,7 +1,7 @@
 Author: Tanner Lorenz
 
 261 Grading Assistance Script
-Version: 0.1
+Version: 1.0
 
 This is a basic Python script to assist with grading student code for CSCI261.
 It is geared specifically towards 261, but could probably be generalized to any
@@ -11,7 +11,7 @@ if you use or change this code.
 
 
 USAGE
----------------------
+--------------------
 
 This script is best run from a command line interface using Python 3. Simply
 run the script like you would a normal .py file. The script takes two
@@ -52,17 +52,27 @@ follows:
 
 Line 1 is the total points that can be earned for the assignment, usually 30.
 This total does not include possible extra credit, which the script will take
-into account.
+into account. Line 2 is the amount of points corresponding to lab submissions.
+Each lab is worth 4 points, so normally this number will be between 8 and 16.
+Line 3 is the amount of points corresponding to the actual assignment criteria,
+which will always be the total number of points minus the total number of lab
+points.
 
-Each line from line 2 onward corresponds to a single criteria from the rubric
+Each line from line 4 onward corresponds to a single criteria from the rubric
 and must be formatted as:
 
-point value:criteria prompt:criteria description
+point value:point type:criteria prompt:criteria description
 
 Point value is the amount of points a single criteria from the rubric is worth.
 For normal requirements this is just the point value, like 0.5 or 2. For
 criteria that are extra credit, the format is the same, except that a + should
 be added to the point value (+2 instead of just 2).
+
+Point type indicates if the criteria is for lab points or for assignment points.
+This will be a single character, 'L' if the criteria pertains to a lab, and 'A'
+if it pertains to the actual assignment.This is necessary since the syllabus
+penalties, like compiler error or missing files, only apply to the actual
+assignment and not the labs.
 
 The criteria prompt is the question the script will ask you when determining if
 a student correctly meets that specific requirement; for example, "Student
@@ -84,11 +94,13 @@ script if you wish to do so.
 Here is a sample of what a rubric file may look like:
 
 30
-+2:Did L1C extra credit:L1C extra credit
-4:Has L1C:Did not finish L1C
-12:Completed first half of assignment:Did not complete first half of assignment
-12:Completed second half of assignment:Did not complete second half of assignment
-2:Made funny joke:Did not make a funny joke
+4
+26
++2:L:Did L1C extra credit:L1C extra credit
+4:L:Has L1C:Did not finish L1C
+12:A:Completed first half of assignment:Did not complete first half of assignment
+12:A:Completed second half of assignment:Did not complete second half of assignment
+2:A:Made funny joke:Did not make a funny joke
 
 Here is an example of what the output for a single student might look like when
 you are done grading them:
@@ -104,6 +116,8 @@ Notes: Joke was awful, please kick student out of Mines
 
 Total: 18.0
 ---------------------------------------------------------------------
+
+You can view the files in the test directory for more examples.
 
 
 SFML
@@ -121,3 +135,11 @@ g++ "-I<directory containing SFML library>\\SFML-2.5.1\\include" -c filename.cpp
 Then to compile all of those object files into an executable:
 
 g++ "-L<directory containing SFML library>\\SFML-2.5.1\\lib" -lsfml-graphics -lsfml-window -lsfml-system *.o -o program_name
+
+
+CHANGELOG
+--------------------
+
+Version 1.0 (1/10/20)
+    - Added ability to apply percentage penalties from the syllabus (Compiler
+      error, missing/extraneous files)

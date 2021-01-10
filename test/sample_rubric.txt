@@ -1,0 +1,8 @@
+30
+4
+26
++2:L:Did L1C extra credit:L1C extra credit
+4:L:Has L1C:Did not finish L1C
+12:A:Completed first half of assignment:Did not complete first half of assignment
+12:A:Completed second half of assignment:Did not complete second half of assignment
+2:A:Made funny joke:Did not make a funny joke
