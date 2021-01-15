@@ -14,37 +14,6 @@ Testo Studentoli
 -12.0: Did not complete second half of assignment
 
 
-Total: 18.0
----------------------------------------------------------------------
-
-Testovsky Studentovitch
-
--12.0: Did not complete second half of assignment
-
--0.25%: Code does not compile
-
-Notes: Did this actually compile on your computer or did you just not bother running your code before submitting it?
-
-
-Total: 6.0
----------------------------------------------------------------------
-
-Test Student
-
--2.0: Did not make a funny joke
-
-Notes: Joke was awful
-
-
-Total: 28.0
----------------------------------------------------------------------
-
-Testo Studentoli
-
-+2.0: L1C extra credit
--12.0: Did not complete second half of assignment
-
-
 Total: 20.0
 ---------------------------------------------------------------------
 
