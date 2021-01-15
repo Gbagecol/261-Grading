@@ -1,7 +1,0 @@
-8
-0
-8
-2:A:Purchased zyBooks:Did not purchase the zyBook
-2:A:Posted to Piazza:Did not make an introductory post on Piazza
-2:Has selfie without name:Did not submit a selfie without your name
-2:Has selfie with name:Did not submit a selfie with your name
