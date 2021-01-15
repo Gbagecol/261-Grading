@@ -22,9 +22,9 @@ gradingScript.py path/to/rubric/file path/to/grades/file
 The first argument is the path to a special rubric.txt file for the assignment
 you are currently grading. This file contains the criteria for the current
 assignment. The contents of this file are described in the next section. But
-if you don't want to construct your own rubric file, I will upload a rubric
-file to this repository whenever a new assignment is ready to be graded.The
-second argument is an output file where each student's grade will be written.
+if you don't want to construct your own rubric file, I will email a rubric file
+to everyone whenever a new assignment is ready to be graded. The second argument
+is an output file where each student's grade will be written.
 
 When the script is launched, it will first ask for the name of the student you
 are currently grading. After you enter a name, the script will go through all
@@ -45,10 +45,9 @@ grade. This list will also include any extra credit points earned.
 RUBRIC FILE
 --------------------
 
-If for some reason you don't want to use the rubric files I upload to this
-repo, you can create your own rubric file using the criteria from the
-instructor's rubric sent via email. The rubric file must be formatted as
-follows:
+If for some reason you don't want to use the rubric files I send, you can create
+your own rubric file using the criteria from the instructor's rubric sent via
+email. The rubric file must be formatted as follows:
 
 Line 1 is the total points that can be earned for the assignment, usually 30.
 This total does not include possible extra credit, which the script will take
